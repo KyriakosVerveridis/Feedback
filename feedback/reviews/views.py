@@ -20,8 +20,10 @@ def review(request):
 			print(form.cleaned_data)  # Debug: display validated form data
 			return HttpResponseRedirect("thank-you") 	
 	
-	# Show an empty or unvalidated form
-	form = ReviewForm()
+	else:
+		# Show an empty or unvalidated form
+		form = ReviewForm()
+	
 	context = {"form":form
 						}
 	# Render the form page with its context
