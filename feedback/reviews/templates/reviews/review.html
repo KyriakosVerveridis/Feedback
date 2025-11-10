@@ -11,12 +11,14 @@
      <body>
 		<form action="/" method="POST">
             {% csrf_token %}
-            {# Apply "error" class when the user_name field has validation errors #}
-            <div class="form-control {% if form.user_name.errors %}error{% endif %}">
-                {{ form.user_name.label_tag }}
-			    {{ form.user_name }}
-			    {{ form.user_name.errors }}
-            </div>
+            {# Render each form field and highlight those with validation errors #}
+            {% for field in form %}
+                <div class="form-control {% if form.field.errors %}error{% endif %}">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            {% endfor %}   
 			<button type="submit">Send</button>
 		</form>		
      </body>
