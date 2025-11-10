@@ -8,7 +8,12 @@
      <body>
 		<form action="/" method="POST">
             {% csrf_token %}
-			{{ form }}
+            {# Apply "error" class when the user_name field has validation errors #}
+            <div class="form-control {% if form.user_name.errors %}error{% endif %}">
+                {{ form.user_name.label_tag }}
+			    {{ form.user_name }}
+			    {{ form.user_name.errors }}
+            </div>
 			<button type="submit">Send</button>
 		</form>		
      </body>
