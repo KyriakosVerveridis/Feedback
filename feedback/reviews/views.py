@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import ReviewForm
 from django.views import View
+from django.views.generic.base import TemplateView
 
 
 # Create your views here.
@@ -33,8 +34,14 @@ class ReviewView(View):
 		return render(request, "reviews/review.html", context)	
 
 
-def thank_you(request):
-	"""
-	Renders the thank-you page after a successful form submission.
-	"""
-	return render (request,"reviews/thank_you.html")
+class ThankYouView(TemplateView):
+
+	# Class-Based View to render a "Thank You" page
+	template_name = "reviews/thank_you.html" # Specifies the template to be rendered
+
+	def get_context_data(self, **kwargs):
+
+		# Adds custom data to the template context
+		context = super().get_context_data(**kwargs) # Retrieve the default context
+		context["message"] = "This Works" # Inject a custom message for the template
+		return context
