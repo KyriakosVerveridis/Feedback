@@ -1,34 +1,36 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import ReviewForm
+from django.views import View
 
 
 # Create your views here.
 
 
-def review(request):
+class ReviewView(View):
 	"""
-	Handles the review form:
-    - Displays an empty form on GET requests.
-    - Processes submitted form data on POST.
-    - Redirects to the thank-you page after successful validation.
+	Using a class-based view allows a cleaner separation of HTTP methods
+    and makes the view more organized and reusable.
 	"""
-	if request.method == "POST":
+	def get(self, request):
+
+		# Handle GET requests: display an empty review form
+		form = ReviewForm()
+		context = {"form":form}
+		return render(request, "reviews/review.html", context)
+
+	def post(self, request):
+
+		# Handle POST requests: process submitted form data
 		form = ReviewForm(request.POST)
 
 		# Validate the form before saving
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect("thank-you") 	
+			return HttpResponseRedirect("thank-you") 
 	
-	else:
-		# Show an empty or unvalidated form
-		form = ReviewForm()
-	
-	context = {"form":form
-						}
-	# Render the form page with its context
-	return render(request, "reviews/review.html", context)
+		context = {"form":form}
+		return render(request, "reviews/review.html", context)	
 
 
 def thank_you(request):
