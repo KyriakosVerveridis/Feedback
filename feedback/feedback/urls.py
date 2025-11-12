@@ -20,5 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("reviews.urls")), # http://localhost:8000/
+    path("profiles/", include("profiles.urls")), 
 
 ]
