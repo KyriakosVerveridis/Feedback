@@ -4,7 +4,7 @@ from .forms import ReviewForm
 from django.views import View
 from django.views.generic.base import TemplateView
 from .models import Review
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 
@@ -58,28 +58,12 @@ class ReviewsListView(ListView):
 	context_object_name = "reviews" # Name to use for the list in the template
     
 
-class SingleReviewView(TemplateView):
-    """
-    Displays the details of a single review using a Django TemplateView.
-    Retrieves the review based on its ID and passes it to the template.
-    """
-    template_name = "reviews/single_review.html"
+class SingleReviewView(DetailView):
+	"""
+	Displays the details of a single review using a Django DetailView.
+	Fetches the Review object based on the 'pk' provided in the URL
+	"""
+	template_name = "reviews/single_review.html"
+	model = Review # The model to fetch a single object from
 
-    def get_context_data(self, **kwargs):
-        """
-        Extends the default context data with 
-        the selected Review instance.
-        """
-        # Get the base context from the parent TemplateView
-        context = super().get_context_data(**kwargs)
-
-        # Retrieve the review ID from the URL parameters
-        review_id = kwargs["id"]
-
-        # Fetch the corresponding Review object from the database
-        selected_review = Review.objects.get(pk=review_id)
-
-        # Add the selected review to the context for template access
-        context["review"] = selected_review
-        return context
 
