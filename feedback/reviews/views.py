@@ -5,27 +5,20 @@ from django.views import View
 from django.views.generic.base import TemplateView
 from .models import Review
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import CreateView
 
 
 # Create your views here.
 
 
-class ReviewView(FormView):
+class ReviewView(CreateView):
 	"""
 	Handles the submission of a Review using a Django FormView.
 	"""
-	form_class = ReviewForm # The form class to use for creating a review
+	model = Review # The model to create an instance of
+	form_class = ReviewForm # The form class used for creating a review
 	template_name = "reviews/review.html"
 	success_url = "thank-you" # URL to redirect to after successful form submission
-
-	def form_valid(self, form):
-		"""
-		Called when the submitted form is valid.
-		"""
-		form.save()
-		return super().form_valid(form)
-	
 
 
 class ThankYouView(TemplateView):
