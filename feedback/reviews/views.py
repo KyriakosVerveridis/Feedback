@@ -4,7 +4,7 @@ from .forms import ReviewForm
 from django.views import View
 from django.views.generic.base import TemplateView
 from .models import Review
-
+from django.views.generic import ListView
 
 # Create your views here.
 
@@ -48,26 +48,14 @@ class ThankYouView(TemplateView):
 		return context
 	
 
-class ReviewsListView(TemplateView):
-    """
+class ReviewsListView(ListView):
+	"""
     Displays a list of all submitted reviews using 
-    a Django TemplateView.
-    """
-    template_name = "reviews/review_list.html"
-    
-    def get_context_data(self, **kwargs):
-        """
-        Extends the default context data with all Review instances.
-        """
-        # Get the base context from the parent TemplateView
-        context = super().get_context_data(**kwargs)
-
-        # Fetch all reviews from the database
-        reviews = Review.objects.all()
-
-        # Add the reviews to the template context
-        context["reviews"] = reviews
-        return context
+	a Django LisView.
+	"""
+	template_name = "reviews/review_list.html"
+	model = Review # The model to fetch objects from
+	context_object_name = "reviews" # Name to use for the list in the template
     
 
 class SingleReviewView(TemplateView):
