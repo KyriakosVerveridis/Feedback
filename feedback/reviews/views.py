@@ -5,34 +5,27 @@ from django.views import View
 from django.views.generic.base import TemplateView
 from .models import Review
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormView
+
 
 # Create your views here.
 
 
-class ReviewView(View):
+class ReviewView(FormView):
 	"""
-	Using a class-based view allows a cleaner separation of HTTP methods
-    and makes the view more organized and reusable.
+	Handles the submission of a Review using a Django FormView.
 	"""
-	def get(self, request):
+	form_class = ReviewForm # The form class to use for creating a review
+	template_name = "reviews/review.html"
+	success_url = "thank-you" # URL to redirect to after successful form submission
 
-		# Handle GET requests: display an empty review form
-		form = ReviewForm()
-		context = {"form":form}
-		return render(request, "reviews/review.html", context)
-
-	def post(self, request):
-
-		# Handle POST requests: process submitted form data
-		form = ReviewForm(request.POST)
-
-		# Validate the form before saving
-		if form.is_valid():
-			form.save()
-			return HttpResponseRedirect("thank-you") 
+	def form_valid(self, form):
+		"""
+		Called when the submitted form is valid.
+		"""
+		form.save()
+		return super().form_valid(form)
 	
-		context = {"form":form}
-		return render(request, "reviews/review.html", context)	
 
 
 class ThankYouView(TemplateView):
