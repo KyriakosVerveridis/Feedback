@@ -9,8 +9,13 @@ from django.views.generic.edit import CreateView
 
 
 class CreateProfileView(CreateView):
+    """
+    Django CreateView to handle displaying the form 
+    and creating a new UserProfile
+    """
+
     template_name = "profiles/create_profile.html"
-    model = UserProfile()
+    model = UserProfile
     fields = "__all__"
-    success_url = "/profiles"
+    success_url = "/profiles/"
 
