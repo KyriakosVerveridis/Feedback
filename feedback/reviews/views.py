@@ -53,3 +53,10 @@ class SingleReviewView(DetailView):
 	model = Review # The model to fetch a single object from
 
 
+class AddFavoriteView(View):
+	"""
+	# Retrieve the Review instance that corresponds to the submitted review_id.
+	"""
+	def post(self,request):
+		review_id = request.POST["review_id"]
+		fav_review = Review.objects.get(pk=review_id)
