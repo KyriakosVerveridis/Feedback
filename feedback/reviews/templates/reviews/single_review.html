@@ -8,8 +8,9 @@
     <h1>{{ review.user_name }}</h1>
     <P>Rating:{{ review.rating }}</P>
     <p>{{ review.review_text }}</p>
-    <form action="/reviews/favorites" method="POST">
-        <input type="hidden" name="review_id" value="{{ review_id }}">
+    <form action="/reviews/favorite" method="POST">
+        {% csrf_token %}    
+        <input type="hidden" name="review_id" value="{{ review.id }}">
         <button>Favorite</button>
     </form>
 {% endblock content %}
