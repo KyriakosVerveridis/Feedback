@@ -38,7 +38,7 @@ Dependencies: asgiref==3.10.0, sqlparse==0.5.3, tzdata==2025.2, pillow==12.0.0
 
 Clone the repository
 ```
-git clone https://github.com/yourusername/feedback.git
+git clone https://github.com/KyriakosVerveridis/Feedback.git
 cd feedback
 ```
 
@@ -80,3 +80,33 @@ Access the app:
 Main app: http://127.0.0.1:8000
 
 Admin panel: http://127.0.0.1:8000/admin
+
+🧠 Learning Outcomes
+
+Through this project, I learned how to:
+
+Use Django ORM for managing models
+
+Implement CreateView, FormView, DetailView, ListView, TemplateView
+
+Handle file uploads with Django forms
+
+Manage user session data for interactive features
+
+Organize templates and static files in a Django project
+
+Build a clean and functional project structure integrating forms, models, views, CBVs, sessions, and uploads
+
+👤 Author
+
+Kyriakos Ververidis
+📍 Based in Greece
+💬 Open to remote opportunities
+📧 ververidiskyriakos@gmail.com
+
+🔗 https://www.linkedin.com/in/kyriakos-ververidis-593a8561/
+
+📝 License
+
+This project is open-source and free to use for educational purposes.
+License: MIT License – see LICENSE for details.
