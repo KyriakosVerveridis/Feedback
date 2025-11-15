@@ -60,7 +60,7 @@ class SingleReviewView(DetailView):
 		# Access the request object to read session data, user info, etc.
 		request = self.request
 		 # Retrieve the 'favorite_review' id from the user's session
-		favorite_id = request.session["favorite_review"]
+		favorite_id = request.session.get("favorite_review")
 		# Add a custom variable to the context for the template
     	# True if the current review is the user's favorite, else False
 		context["is_favorite"] = favorite_id == str(loaded_review.id)
