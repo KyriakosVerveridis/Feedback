@@ -52,6 +52,21 @@ class SingleReviewView(DetailView):
 	template_name = "reviews/single_review.html"
 	model = Review # The model to fetch a single object from
 
+	def get_context_data(self, **kwargs):
+		# Get the default context from DetailView (includes the object by default)
+		context = super().get_context_data(**kwargs)
+		# The object fetched by the DetailView
+		loaded_review = self.object
+		# Access the request object to read session data, user info, etc.
+		request = self.request
+		 # Retrieve the 'favorite_review' id from the user's session
+		favorite_id = request.session["favorite_review"]
+		# Add a custom variable to the context for the template
+    	# True if the current review is the user's favorite, else False
+		context["is_favorite"] = favorite_id == str(loaded_review.id)
+		return context
+
+
 
 class AddFavoriteView(View):
 	"""
